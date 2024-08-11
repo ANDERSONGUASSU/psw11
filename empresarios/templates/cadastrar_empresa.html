@@ -1,0 +1,107 @@
+{% extends "base.html" %} {% load static %} {% block 'head' %}
+
+<link rel="stylesheet" href="{% static 'usuarios/css/usuarios.css' %}" />
+
+{% endblock 'head' %} {% block 'body' %} 
+{% include "partials/barra_navegacao.html" %}
+
+<div class="container">
+	<br />
+	<br />
+	{% if messages %}
+        {% for message in messages %}
+	        <section class="alert {{message.tags}}">
+                {{message | safe}}
+            </section>
+	{% endfor %} 
+    
+    {% endif %}
+	<div class="row">
+		<div class="col-md">
+			<form
+				action="{% url 'cadastrar_empresa' %}"
+				method="POST"
+				enctype="multipart/form-data"
+			>
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.nome.label_tag }} {{ form.nome }}
+						</div>
+						<br />
+						<div class="form-group">
+							{{ form.cnpj.label_tag }} {{ form.cnpj }}
+						</div>
+						<br />
+						<div class="form-group">
+							{{ form.site.label_tag }} {{ form.site }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.tempo_existencia.label_tag }} {{ form.tempo_existencia }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.descricao.label_tag }} {{ form.descricao }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.data_final_captacao.label_tag }} 
+                            {{ form.data_final_captacao }}
+						</div>
+						<br />
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.percentual_equity.label_tag }} 
+                            {{ form.percentual_equity }}
+						</div>
+                        <br>
+						<div class="form-group">
+							{{ form.estagio.label_tag }}
+							<br />
+							<br />
+							{% for checkbox in form.estagio %}
+							<div class="form-check">
+								{{ checkbox.tag }} {{ checkbox.choice_label }}
+							</div>
+							<br />
+							{% endfor %}
+						</div>
+						<div class="form-group">
+							{{ form.area.label_tag }} {{ form.area }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.publico_alvo.label_tag }} {{ form.publico_alvo }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.valor.label_tag }} {{ form.valor }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.pitch.label_tag }} {{ form.pitch }}
+						</div>
+						<br />
+
+						<div class="form-group">
+							{{ form.logo.label_tag }} {{ form.logo }}
+						</div>
+						<br />
+					</div>
+				</div>
+				<input type="submit" class="btn btn-lg btn-indigo" value="Cadastrar" />
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock 'body' %}
